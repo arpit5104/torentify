@@ -28,7 +28,7 @@ const Jobs = () => {
       try {
 
         const apiBaseUrl = import.meta.env.VITE_API_URL || "";
-        const res = await fetch(`${apiBaseUrl}/jobs`);
+        const res = await fetch(`${apiBaseUrl}/jobs/getJobs`);
         const data = await res.json();
 
         const jobList = Array.isArray(data) ? data : data.data;
