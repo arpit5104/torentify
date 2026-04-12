@@ -1,25 +1,23 @@
 import { Sequelize } from "sequelize";
-import fs from "fs";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // 🔥 Final override for local SSL issues
+
 import path from "path";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Load CA certificate
-const caCert = fs.readFileSync(
-  path.join(__dirname, "../certs/ca.pem")
-);
 const DATABASE_URL = process.env.DATABASE_URL;
 
-
+// Force SSL options for cloud databases (Supabase/Aiven/Neon)
 const sequelize = new Sequelize(DATABASE_URL, {
   dialect: "postgres",
   logging: false,
   dialectOptions: {
+    prepareThreshold: 0, // 🔥 Fix for Supabase 'cache lookup failed' error
     ssl: {
       require: true,
-      ca: caCert   // 🔥 THIS IS THE REAL FIX
+      rejectUnauthorized: false
     }
   }
 });
