@@ -34,8 +34,9 @@ const Contact = () => {
 
     try {
 
+      const apiBaseUrl = import.meta.env.VITE_API_URL || "";
       const response = await axios.post(
-        "https://backend-torentify.onrender.com/api/contact",
+        `${apiBaseUrl}/contact`,
         formData
       );
 

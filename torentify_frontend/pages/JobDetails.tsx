@@ -24,9 +24,8 @@ const JobDetail: React.FC = () => {
 
       try {
 
-        const res = await fetch(
-          `https://backend-torentify.onrender.com/api/jobs/getJobById/${id}`
-        );
+        const apiBaseUrl = import.meta.env.VITE_API_URL || "";
+        const res = await fetch(`${apiBaseUrl}/jobs/getJobById/${id}`);
 
         const data = await res.json();
 

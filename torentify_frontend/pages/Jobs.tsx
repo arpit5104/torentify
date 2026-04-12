@@ -27,7 +27,8 @@ const Jobs = () => {
 
       try {
 
-        const res = await fetch("/.netlify/functions/jobs");
+        const apiBaseUrl = import.meta.env.VITE_API_URL || "";
+        const res = await fetch(`${apiBaseUrl}/jobs`);
         const data = await res.json();
 
         const jobList = Array.isArray(data) ? data : data.data;
